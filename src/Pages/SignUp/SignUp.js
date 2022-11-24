@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import GoogleSignIn from "../../Share/GoogleSignIn";
 
-const Login = () => {
+const SignUp = () => {
   const {
     register,
     formState: { errors },
@@ -12,18 +12,33 @@ const Login = () => {
 
   const [data, setData] = useState("");
 
-  const handleLogIn = (data) => {
+  const handleSignUp = (data) => {
     console.log(data);
   };
-
   return (
     <div className="hero-content text-center text-neutral-content my-16">
       <div className="w-96 py-8 px-8 xl:col-span-2 dark:bg-secondary">
         <h1 className="text-5xl font-extrabold dark:text-gray-900 mb-8">
-          Login
+          Signup
         </h1>
 
-        <form onSubmit={handleSubmit(handleLogIn)}>
+        <form onSubmit={handleSubmit(handleSignUp)}>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text dark:text-gray-900"> Name</span>
+            </label>
+            <input
+              type="text"
+              {...register("name", { required: "Name Address is required" })}
+              placeholder="Name"
+              className="input input-bordered w-full max-w-xs"
+            />
+            {errors.name && (
+              <p role="alert" className="text-red-700">
+                {errors.name?.message}
+              </p>
+            )}
+          </div>
           <div className="form-control w-full max-w-xs">
             <label className="label">
               <span className="label-text dark:text-gray-900"> Email</span>
@@ -75,21 +90,15 @@ const Login = () => {
           </select>
           <label className="label">
             <span className="label-text dark:text-gray-900">
-              Forget password
+              Already have an account?<Link to="/login"> Please login</Link>
             </span>
           </label>
           <input
             type="submit"
-            value="Login"
+            value="Signup"
             className="w-full py-2 font-semibold rounded btn btn-accent bg-red-500 text-white mb-4"
           />
         </form>
-        <p className="text-start">
-          New in this website?
-          <Link to="/signup" className="text-accent">
-            Please register
-          </Link>
-        </p>
         <div className="divider">OR</div>
         <GoogleSignIn></GoogleSignIn>
       </div>
@@ -97,4 +106,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
