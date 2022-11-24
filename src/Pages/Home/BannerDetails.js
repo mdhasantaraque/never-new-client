@@ -12,7 +12,7 @@ const BannerDetails = ({ slide }) => {
           Discover <br /> your <br /> target...
         </h1>
       </div>
-      <div className="absolute flex justify-end transform -translate-y-1/2 w-2/5 left-24 top-2/3">
+      <div className="absolute flex justify-end transform -translate-y-1/2 w-2/5 left-24 top-2/3 hidden md:block">
         <p className="text-white">
           Anyone Can Sell and buy used motor vehicle from Anywhere.
           <br /> Don't Wait for Right Time to Sell. Feel Like Selling It, Just
