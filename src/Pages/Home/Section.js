@@ -5,7 +5,7 @@ const Section = () => {
   return (
     <div>
       <div>
-        <div className="p-6 py-12 dark:bg-violet-200 dark:text-gray-900">
+        <div className="p-6 py-12 dark:bg-secondary dark:text-accent">
           <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row items-center justify-between">
               <h2 className="text-center text-6xl tracking-tighter font-bold">
@@ -14,7 +14,9 @@ const Section = () => {
                 30% Off
               </h2>
               <div className="space-x-2 text-center py-2 lg:py-0">
-                <span>For Discount ! Use code:</span>
+                <span className="dark:text-gray-900">
+                  For Discount ! Use code:
+                </span>
                 <span className="font-bold text-lg">Never New</span>
               </div>
             </div>
