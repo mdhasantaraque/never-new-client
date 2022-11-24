@@ -30,14 +30,14 @@ const AuthProvider = ({ children }) => {
 
   // New user name update
 
-  const nameUpdate = (name) => {
+  const nameUpdate = (userInfo) => {
     setLoading(true);
-    return updateProfile(auth.currentUser, { displayName: name });
+    return updateProfile(user, userInfo);
   };
 
   // SingIn
 
-  const login = (email, password) => {
+  const loginUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
     user,
     createUser,
     loading,
-    login,
+    loginUser,
     signInWithGoogle,
     nameUpdate,
     logOut,

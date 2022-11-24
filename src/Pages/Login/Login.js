@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../Contexts/AuthProvider";
 import GoogleSignIn from "../../Share/GoogleSignIn";
 
 const Login = () => {
+  const { loginUser } = useContext(AuthContext);
   const {
     register,
     formState: { errors },
@@ -14,10 +17,18 @@ const Login = () => {
 
   const handleLogIn = (data) => {
     console.log(data);
+    loginUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success("Successfully login");
+        // form.reset();
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
-    <div className="hero-content text-center text-neutral-content my-16">
+    <div className="hero-content text-center text-neutral-content py-16 bg-zinc-200">
       <div className="w-96 py-8 px-8 xl:col-span-2 dark:bg-secondary">
         <h1 className="text-5xl font-extrabold dark:text-gray-900 mb-8">
           Login

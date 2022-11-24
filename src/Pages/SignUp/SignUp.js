@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import GoogleSignIn from "../../Share/GoogleSignIn";
 
@@ -10,22 +11,34 @@ const SignUp = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { createUser } = useContext(AuthContext);
+  const { createUser, nameUpdate } = useContext(AuthContext);
 
   const [data, setData] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const handleSignUp = (data) => {
+    setLoginError("");
     console.log(data);
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        const userInfo = {
+          displayName: data.name,
+        };
+        nameUpdate(userInfo)
+          .then(() => {})
+          .catch((error) => console.log(error));
         // form.reset();
+        toast.success("Successfully registered");
       })
-      .catch((error) => toast.error(error.message));
+      .catch((error) => {
+        setLoginError(error.message);
+        // toast.error(error.message);
+      });
   };
   return (
-    <div className="hero-content text-center text-neutral-content my-16">
+    <div className="hero-content text-center text-neutral-content py-16 bg-zinc-200">
       <div className="w-96 py-8 px-8 xl:col-span-2 dark:bg-secondary">
         <h1 className="text-5xl font-extrabold dark:text-gray-900 mb-8">
           Signup
@@ -102,6 +115,9 @@ const SignUp = () => {
               Already have an account?<Link to="/login"> Please login</Link>
             </span>
           </label>
+          <div>
+            {loginError && <p className="text-red-700">{loginError}</p>}
+          </div>
           <input
             type="submit"
             value="Signup"
