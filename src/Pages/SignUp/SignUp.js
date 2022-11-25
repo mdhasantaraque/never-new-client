@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import GoogleSignIn from "../../Share/GoogleSignIn";
@@ -11,18 +11,25 @@ const SignUp = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { createUser, nameUpdate } = useContext(AuthContext);
 
+  const { createUser, nameUpdate } = useContext(AuthContext);
   const [data, setData] = useState("");
-  const [loginError, setLoginError] = useState("");
+  const [signUpError, setSignUpError] = useState("");
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleSignUp = (data) => {
-    setLoginError("");
+    setSignUpError("");
     console.log(data);
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate(from, { replace: true });
+        toast.success("Successfully registered");
         const userInfo = {
           displayName: data.name,
         };
@@ -30,10 +37,9 @@ const SignUp = () => {
           .then(() => {})
           .catch((error) => console.log(error));
         // form.reset();
-        toast.success("Successfully registered");
       })
       .catch((error) => {
-        setLoginError(error.message);
+        setSignUpError(error.message);
         // toast.error(error.message);
       });
   };
@@ -116,7 +122,7 @@ const SignUp = () => {
             </span>
           </label>
           <div>
-            {loginError && <p className="text-red-700">{loginError}</p>}
+            {signUpError && <p className="text-red-700">{signUpError}</p>}
           </div>
           <input
             type="submit"

@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contexts/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleLogout = () => {
     logOut()
-      .then(() => {})
+      .then(() => {
+        navigate("/");
+      })
       .catch((error) => console.log(error));
   };
   const allMenu = (
@@ -18,7 +21,7 @@ const Navbar = () => {
         <Link to="/appointment">Appointment</Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link to="/dashboard">Dashboard</Link>
       </li>
       <li>
         <Link to="/signup">SignUp</Link>
@@ -55,7 +58,7 @@ const Navbar = () => {
             </svg>
           </label>
           <ul
-            tabIndex={0}
+            tabIndex={1}
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-neutral text-accent font-semibold rounded-box w-52"
           >
             {allMenu}
@@ -70,6 +73,26 @@ const Navbar = () => {
           {allMenu}
         </ul>
       </div>
+      <label
+        htmlFor="my-drawer-2"
+        tabIndex={2}
+        className="btn btn-ghost lg:hidden text-accent"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 6h16M4 12h8m-8 6h16"
+          />
+        </svg>
+      </label>
     </div>
   );
 };
