@@ -23,7 +23,7 @@ const SignUp = () => {
 
   const handleSignUp = (data) => {
     setSignUpError("");
-    console.log(data);
+    // console.log(data);
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
@@ -33,8 +33,9 @@ const SignUp = () => {
         const userInfo = {
           displayName: data.name,
         };
+
         nameUpdate(userInfo)
-          .then(() => {})
+          .then((result) => {})
           .catch((error) => console.log(error));
         // form.reset();
       })

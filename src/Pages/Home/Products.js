@@ -12,7 +12,7 @@ const Products = () => {
         `${process.env.REACT_APP_API_URL}/productOptions`
       );
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       return data;
     },
   });
