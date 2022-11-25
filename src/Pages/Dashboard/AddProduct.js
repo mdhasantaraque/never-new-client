@@ -26,25 +26,25 @@ const AddProduct = () => {
       location,
       phone,
     };
-    console.log(productDetails);
+    // console.log(productDetails);
 
-    // fetch("http://localhost:5000/", {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(productDetails),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.acknowledged) {
-    //       toast.success("Your product successfully added..");
-    //       //   refetch();
-    //     } else {
-    //       toast.error(data.message);
-    //     }
-    //   });
+    fetch(`${process.env.REACT_APP_API_URL}/productDetails`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(productDetails),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success("Your product successfully added..");
+          //   refetch();
+        } else {
+          toast.error(data.message);
+        }
+      });
   };
   return (
     <div className="text-center text-neutral-content py-16 bg-zinc-200 max-h-min">
@@ -137,10 +137,10 @@ const AddProduct = () => {
                 <label className="text-sm sr-only">Image</label>
                 <input
                   name="img"
-                  type="img"
+                  type="file"
                   placeholder="Image URL"
                   className="w-full text-black rounded-md focus:ring dark:border-gray-700 p-2 mb-2"
-                  required
+                //   required
                 />
               </div>
 
