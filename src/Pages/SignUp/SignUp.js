@@ -13,7 +13,6 @@ const SignUp = () => {
   } = useForm();
 
   const { createUser, nameUpdate } = useContext(AuthContext);
-  const [data, setData] = useState("");
   const [signUpError, setSignUpError] = useState("");
 
   const location = useLocation();
@@ -35,13 +34,30 @@ const SignUp = () => {
         };
 
         nameUpdate(userInfo)
-          .then((result) => {})
+          .then((result) => {
+            userSaveToDb(data.name, data.email);
+          })
           .catch((error) => console.log(error));
         // form.reset();
       })
       .catch((error) => {
         setSignUpError(error.message);
         // toast.error(error.message);
+      });
+  };
+  const userSaveToDb = (name, email) => {
+    const user = { name, email };
+    fetch(`${process.env.REACT_APP_API_URL}/users`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("successfully save", data);
+        navigate(from, { replace: true });
       });
   };
   return (

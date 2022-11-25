@@ -7,13 +7,14 @@ import GoogleSignIn from "../../Share/GoogleSignIn";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
+  const [signUpError, setSignUpError] = useState("");
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  const [data, setData] = useState("");
+  // const [data, setData] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,7 +30,10 @@ const Login = () => {
         toast.success("Successfully login");
         // form.reset();
       })
-      .catch((error) => toast.error(error.message));
+      .catch((error) => {
+        setSignUpError(error.message);
+        toast.error(error.message);
+      });
   };
 
   return (
@@ -94,6 +98,9 @@ const Login = () => {
               Forget password
             </span>
           </label>
+          <div>
+            {signUpError && <p className="text-red-700">{signUpError}</p>}
+          </div>
           <input
             type="submit"
             value="Login"

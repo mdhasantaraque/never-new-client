@@ -17,12 +17,6 @@ const Products = () => {
     },
   });
 
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/productOptions")
-  //     .then((res) => res.json())
-  //     .then((data) => setTypeProducts(data));
-  // }, []);
-
   return (
     <div className="my-32 mx-auto">
       <h1 className="text-center text-accent font-bold text-xl mb-24">
