@@ -4,8 +4,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import GoogleSignIn from "../../Share/GoogleSignIn";
+import useToken from "../Hooks/useToken";
 
 const SignUp = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     formState: { errors },
@@ -14,11 +19,11 @@ const SignUp = () => {
 
   const { createUser, nameUpdate } = useContext(AuthContext);
   const [signUpError, setSignUpError] = useState("");
-
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const from = location.state?.from?.pathname || "/";
+  const [createdUserEmail, setCreatedUserEmail] = useState("");
+  const [token] = useToken(createdUserEmail);
+  if (token) {
+    navigate(from, { replace: true });
+  }
 
   const handleSignUp = (data) => {
     setSignUpError("");
@@ -27,8 +32,6 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate(from, { replace: true });
-        toast.success("Successfully registered");
         const userInfo = {
           displayName: data.name,
         };
@@ -56,10 +59,23 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("successfully save", data);
-        navigate(from, { replace: true });
+        setCreatedUserEmail(email);
       });
   };
+
+  // const getUserToken = (email) => {
+  //   fetch(`${process.env.REACT_APP_API_URL}/jwt?email=${email}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       if (data.accessToken) {
+  //         // console.log(data.accessToken);
+  //         localStorage.setItem("accessToken", data.accessToken);
+  //         toast.success("Successfully registered");
+  //         navigate(from, { replace: true });
+  //       }
+  //     });
+  // };
   return (
     <div className="hero-content text-center text-neutral-content py-16 bg-zinc-200">
       <div className="w-96 py-8 px-8 xl:col-span-2 dark:bg-secondary">
