@@ -1,9 +1,17 @@
 import React, { useContext } from "react";
 import { toast } from "react-toastify";
-
+import { DayPicker } from "react-day-picker";
+import { format } from "date-fns";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
 const AddProduct = () => {
+  let showDate = new Date();
+  let displayTodayDate =
+    showDate.getDay() +
+    "/" +
+    showDate.getMonth() +
+    "/" +
+    showDate.getFullYear();
   const { user } = useContext(AuthContext);
   const imgbbKey = process.env.REACT_APP_imgbb_key;
 
@@ -41,6 +49,7 @@ const AddProduct = () => {
             location,
             image: imgData.data.url,
             phone,
+            date: displayTodayDate,
           };
 
           fetch(`${process.env.REACT_APP_API_URL}/productDetails`, {
@@ -65,6 +74,7 @@ const AddProduct = () => {
   };
   return (
     <div className="text-center text-neutral-content py-16 bg-zinc-200 max-h-min">
+      {/* <p>{displayTodayDate}</p> */}
       <div className="grid p-4 mx-auto items-end justify-center">
         <div className=" max-w-lg p-6 my-8 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-secondary dark:text-gray-900">
           <p className="font-semibold dark:text-gray-900 text-3xl">

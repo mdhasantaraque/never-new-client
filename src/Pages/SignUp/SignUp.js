@@ -27,7 +27,7 @@ const SignUp = () => {
 
   const handleSignUp = (data) => {
     setSignUpError("");
-    // console.log(data);
+
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
@@ -38,7 +38,7 @@ const SignUp = () => {
 
         nameUpdate(userInfo)
           .then((result) => {
-            userSaveToDb(data.name, data.email);
+            userSaveToDb(data.name, data.email, data.category);
           })
           .catch((error) => console.log(error));
         // form.reset();
@@ -48,8 +48,9 @@ const SignUp = () => {
         // toast.error(error.message);
       });
   };
-  const userSaveToDb = (name, email) => {
-    const user = { name, email };
+  const userSaveToDb = (name, email, role) => {
+    const user = { name, email, role };
+    console.log(user);
     fetch(`${process.env.REACT_APP_API_URL}/users`, {
       method: "POST",
       headers: {
@@ -132,9 +133,9 @@ const SignUp = () => {
             className="input input-bordered w-full max-w-xs mb-2"
             {...register("category", { required: true })}
           >
-            <option value="B">Buyer</option>
+            <option value="buyer">Buyer</option>
             {/* <option value="A">Option A</option> */}
-            <option value="S">Seller</option>
+            <option value="seller">Seller</option>
           </select>
           <label className="label">
             <span className="label-text dark:text-gray-900">
