@@ -31,6 +31,27 @@ const Users = () => {
         }
       });
   };
+
+  const handleDelete = (id) => {
+    const proceed = window.confirm("Are you sure, you want to remove the user");
+    if (proceed) {
+      fetch(`${process.env.REACT_APP_API_URL}/users/admin/${id}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            toast.error("deleted successfully");
+            refetch();
+            // const remaining = orders.filter(odr => odr._id !== id);
+            // setOrders(remaining);
+          }
+        });
+    }
+  };
   return (
     <div>
       <h1 className="text-center text-gray-900 mt-8">{user?.displayName}</h1>
@@ -67,7 +88,10 @@ const Users = () => {
                 </td>
 
                 <td>
-                  <button className="btn btn-xs btn-accent text-white">
+                  <button
+                    onClick={handleDelete}
+                    className="btn btn-xs btn-accent text-white"
+                  >
                     Remove
                   </button>
                 </td>
