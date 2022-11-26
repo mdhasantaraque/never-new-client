@@ -63,19 +63,6 @@ const SignUp = () => {
       });
   };
 
-  // const getUserToken = (email) => {
-  //   fetch(`${process.env.REACT_APP_API_URL}/jwt?email=${email}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       if (data.accessToken) {
-  //         // console.log(data.accessToken);
-  //         localStorage.setItem("accessToken", data.accessToken);
-  //         toast.success("Successfully registered");
-  //         navigate(from, { replace: true });
-  //       }
-  //     });
-  // };
   return (
     <div className="hero-content text-center text-neutral-content py-16 bg-zinc-200">
       <div className="w-96 py-8 px-8 xl:col-span-2 dark:bg-secondary">

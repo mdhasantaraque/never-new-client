@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { toast } from "react-toastify";
+
 import { AuthContext } from "../../Contexts/AuthProvider";
 
 const AddProduct = () => {
   const { user } = useContext(AuthContext);
+  const imgbbKey = process.env.REACT_APP_imgbb_key;
+
   const handleAddProduct = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -15,34 +18,48 @@ const AddProduct = () => {
     const price = form.price.value;
     const location = form.location.value;
     const phone = form.phone.value;
-    // [3, 4, 5].map((value, i) => console.log(value))
-    const productDetails = {
-      name,
-      email,
-      categories,
-      condition,
-      purchase,
-      price,
-      location,
-      phone,
-    };
-    // console.log(productDetails);
+    const image = form.image.files[0];
 
-    fetch(`${process.env.REACT_APP_API_URL}/productDetails`, {
+    const formData = new FormData();
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=${imgbbKey}`;
+    fetch(url, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(productDetails),
+      body: formData,
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.acknowledged) {
-          toast.success("Your product successfully added..");
-          //   refetch();
-        } else {
-          toast.error(data.message);
+      .then((imgData) => {
+        console.log(imgData);
+        if (imgData.success) {
+          const productDetails = {
+            name,
+            email,
+            categories,
+            condition,
+            purchase,
+            price,
+            location,
+            image: imgData.data.url,
+            phone,
+          };
+
+          fetch(`${process.env.REACT_APP_API_URL}/productDetails`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(productDetails),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              if (data.acknowledged) {
+                toast.success("Your product successfully added..");
+                //   refetch();
+              } else {
+                toast.error(data.message);
+              }
+            });
         }
       });
   };
@@ -135,12 +152,13 @@ const AddProduct = () => {
               </div>
               <div className="form-control">
                 <label className="text-sm sr-only">Image</label>
+                <p>Image</p>
                 <input
-                  name="img"
+                  name="image"
                   type="file"
                   placeholder="Image URL"
                   className="w-full text-black rounded-md focus:ring dark:border-gray-700 p-2 mb-2"
-                //   required
+                  //   required
                 />
               </div>
 
