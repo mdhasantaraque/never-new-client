@@ -34,6 +34,7 @@ const Users = () => {
 
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure, you want to remove the user");
+    console.log(id);
     if (proceed) {
       fetch(`${process.env.REACT_APP_API_URL}/users/admin/${id}`, {
         method: "DELETE",
@@ -89,7 +90,7 @@ const Users = () => {
 
                 <td>
                   <button
-                    onClick={handleDelete}
+                    onClick={() => handleDelete(user._id)}
                     className="btn btn-xs btn-accent text-white"
                   >
                     Remove

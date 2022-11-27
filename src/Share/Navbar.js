@@ -18,18 +18,21 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/appointment">Appointment</Link>
+        <Link to="/blog">Blog</Link>
       </li>
-      <li>
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
+
       <li>
         <Link to="/signup">SignUp</Link>
       </li>
       {user?.uid ? (
-        <li>
-          <button onClick={handleLogout}>Logout</button>
-        </li>
+        <>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li>
+            <button onClick={handleLogout}>Logout</button>
+          </li>
+        </>
       ) : (
         <li>
           <Link to="/login">Login</Link>

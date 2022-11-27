@@ -1,17 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { DayPicker } from "react-day-picker";
 import { format } from "date-fns";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
 const AddProduct = () => {
-  let showDate = new Date();
-  let displayTodayDate =
-    showDate.getDay() +
-    "/" +
-    showDate.getMonth() +
-    "/" +
-    showDate.getFullYear();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   const { user } = useContext(AuthContext);
   const imgbbKey = process.env.REACT_APP_imgbb_key;
 
@@ -27,6 +22,7 @@ const AddProduct = () => {
     const location = form.location.value;
     const phone = form.phone.value;
     const image = form.image.files[0];
+    const brand = form.message.value;
 
     const formData = new FormData();
     formData.append("image", image);
@@ -49,7 +45,8 @@ const AddProduct = () => {
             location,
             image: imgData.data.url,
             phone,
-            date: displayTodayDate,
+            brand,
+            date: selectedDate,
           };
 
           fetch(`${process.env.REACT_APP_API_URL}/productDetails`, {
@@ -64,7 +61,7 @@ const AddProduct = () => {
               console.log(data);
               if (data.acknowledged) {
                 toast.success("Your product successfully added..");
-                //   refetch();
+                form.reset();
               } else {
                 toast.error(data.message);
               }
@@ -74,7 +71,7 @@ const AddProduct = () => {
   };
   return (
     <div className="text-center text-neutral-content py-16 bg-zinc-200 max-h-min">
-      {/* <p>{displayTodayDate}</p> */}
+      <p>Your post date {format(selectedDate, "P")}</p>
       <div className="grid p-4 mx-auto items-end justify-center">
         <div className=" max-w-lg p-6 my-8 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-secondary dark:text-gray-900">
           <p className="font-semibold dark:text-gray-900 text-3xl">
@@ -168,7 +165,7 @@ const AddProduct = () => {
                   type="file"
                   placeholder="Image URL"
                   className="w-full text-black rounded-md focus:ring dark:border-gray-700 p-2 mb-2"
-                  //   required
+                  required
                 />
               </div>
 
@@ -184,7 +181,7 @@ const AddProduct = () => {
               </div>
               <textarea
                 className="textarea textarea-accent text-black w-full h-20"
-                placeholder="your review"
+                placeholder="Brand Name"
                 name="message"
                 required
               ></textarea>
@@ -197,6 +194,13 @@ const AddProduct = () => {
             </form>
           </div>
         </div>
+      </div>
+      <div className="hidden">
+        <DayPicker
+          mode="single"
+          selected={selectedDate}
+          onSelect={setSelectedDate}
+        />
       </div>
     </div>
   );
