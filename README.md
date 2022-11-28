@@ -6,6 +6,10 @@ https://github.com/programming-hero-web-course-4/b612-used-products-resale-clien
 
 https://github.com/programming-hero-web-course-4/b612-used-products-resale-server-side-mdhasantaraque
 
+## netlify live link
+
+https://never-new-taraque.netlify.app/
+
 ## Firebase live link
 
 https://never-new.web.app

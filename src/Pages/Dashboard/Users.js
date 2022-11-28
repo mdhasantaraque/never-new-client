@@ -47,8 +47,6 @@ const Users = () => {
           if (data.deletedCount > 0) {
             toast.error("deleted successfully");
             refetch();
-            // const remaining = orders.filter(odr => odr._id !== id);
-            // setOrders(remaining);
           }
         });
     }
