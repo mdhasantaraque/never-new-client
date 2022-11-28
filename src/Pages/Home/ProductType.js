@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ProductType = ({ products }) => {
-  const { image, product, details } = products;
+  const { image, product, details, type } = products;
   return (
     <div className="max-w-xs rounded-md shadow-md dark:bg-secondary dark:text-gray-900">
       <img
@@ -14,12 +15,14 @@ const ProductType = ({ products }) => {
           <h2 className="text-3xl font-semibold tracking-wide">{product}</h2>
           <p className="dark:text-gray-900">{details}</p>
         </div>
-        <button
-          type="button"
-          className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md dark:bg-accent dark:text-gray-900 bottom-0"
-        >
-          Read more
-        </button>
+        <Link to={type}>
+          <button
+            type="button"
+            className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md dark:bg-accent dark:text-gray-900 bottom-0"
+          >
+            Show all
+          </button>
+        </Link>
       </div>
     </div>
   );

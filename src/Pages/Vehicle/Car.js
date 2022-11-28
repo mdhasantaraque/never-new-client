@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
-import { AuthContext } from "../../Contexts/AuthProvider";
+
 import Loader from "../../Share/Loader";
 import CarCard from "./CarCard";
 

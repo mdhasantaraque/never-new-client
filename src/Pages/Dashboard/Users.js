@@ -74,27 +74,17 @@ const Users = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
 
-                <td>
-                  {user?.role !== "admin" ? (
-                    <button
-                      onClick={() => handleAdmin(user._id)}
-                      className="btn btn-xs btn-info text-white"
-                      disabled
-                    >
-                      Make Admin
-                    </button>
-                  ) : (
-                    "Admin"
-                  )}
-                </td>
+                <td>{user?.role}</td>
 
                 <td>
-                  <button
-                    onClick={() => handleDelete(user._id)}
-                    className="btn btn-xs btn-accent text-white"
-                  >
-                    Remove
-                  </button>
+                  {user?.role !== "admin" && (
+                    <button
+                      onClick={() => handleDelete(user._id)}
+                      className="btn btn-xs btn-accent text-white"
+                    >
+                      Remove
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

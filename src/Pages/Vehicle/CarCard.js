@@ -1,4 +1,5 @@
 import React from "react";
+import BookingModal from "../../Share/BookingModal";
 
 const CarCard = ({ car }) => {
   const {
@@ -28,7 +29,11 @@ const CarCard = ({ car }) => {
             <p>Condition: {condition}</p>
             <p>Date of purchase: {purchase}</p>
             <p>Price: Tk- {price}</p>
-            <p>Status: {status}</p>
+            {status === "booked" ? (
+              <p className="text-red-600">Status: {status}</p>
+            ) : (
+              <p>Status: {status}</p>
+            )}
             <p>Posted: {date}</p>
           </div>
           <div className="md:px-2 md:pt-6">
@@ -37,7 +42,27 @@ const CarCard = ({ car }) => {
             <p>Phone: {phone}</p>
             <p>Location: {location}</p>
             <div className="card-actions my-2">
-              <button className="btn btn-sm btn-accent">Booked</button>
+              {status === "booked" ? (
+                <label
+                  htmlFor="booking-modal"
+                  className="btn btn-sm btn-accent"
+                  disabled
+                >
+                  Book now
+                </label>
+              ) : (
+                <label
+                  htmlFor="booking-modal"
+                  className="btn btn-sm btn-accent"
+                >
+                  Book now
+                </label>
+              )}
+              <BookingModal
+                id={car._id}
+                categories={categories}
+                price={price}
+              ></BookingModal>
             </div>
           </div>
         </div>
