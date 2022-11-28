@@ -8,6 +8,8 @@ https://github.com/programming-hero-web-course-4/b612-used-products-resale-serve
 
 ## Firebase live link
 
+https://never-new.web.app
+
 ## Project name: Never New
 
 ## My work in this assignment...
