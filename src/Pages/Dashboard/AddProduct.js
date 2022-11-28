@@ -19,6 +19,7 @@ const AddProduct = () => {
     const condition = form.condition.value;
     const purchase = form.purchase.value;
     const price = form.price.value;
+    const newPrice = form.newPrice.value;
     const location = form.location.value;
     const phone = form.phone.value;
     const image = form.image.files[0];
@@ -47,6 +48,7 @@ const AddProduct = () => {
             phone,
             brand,
             date: selectedDate,
+            newPrice,
           };
 
           fetch(`${process.env.REACT_APP_API_URL}/productDetails`, {
@@ -134,6 +136,16 @@ const AddProduct = () => {
                   type="text"
                   placeholder="Year of purchase"
                   className="w-full rounded-md text-black focus:ring focus:ring-violet-400 dark:border-gray-700 mb-2 p-2"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="text-sm sr-only">Price</label>
+                <input
+                  name="newPrice"
+                  type="text"
+                  placeholder="New Price"
+                  className="w-full text-black rounded-md focus:ring dark:border-gray-700 p-2 mb-2"
                   required
                 />
               </div>

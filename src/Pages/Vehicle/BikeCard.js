@@ -15,6 +15,7 @@ const BikeCard = ({ bike }) => {
     date,
     brand,
     status,
+    newPrice,
   } = bike;
   return (
     <div>
@@ -27,8 +28,9 @@ const BikeCard = ({ bike }) => {
           <div>
             <p className="text-xl font-bold">Brand: {brand}</p>
             <p>Condition: {condition}</p>
-            <p>Date of purchase: {purchase}</p>
-            <p>Price: Tk- {price}</p>
+            <p>Use from: {purchase}</p>
+            <p>Selling Price: Tk- {price}</p>
+            <p>New Price: Tk- {newPrice}</p>
             {status === "booked" ? (
               <p className="text-red-600">Status: {status}</p>
             ) : (
@@ -38,7 +40,12 @@ const BikeCard = ({ bike }) => {
             <p>Posted: {date}</p>
           </div>
           <div className="md:px-2 md:pt-6">
-            <h1>Owner: {name}</h1>
+            <p>
+              <small className="bg-yellow-600 text-white p-1 rounded">
+                verified
+              </small>
+              Owner: {name}
+            </p>
             <p>Email: {email}</p>
             <p>Phone: {phone}</p>
             <p>Location: {location}</p>

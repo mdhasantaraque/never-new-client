@@ -21,9 +21,6 @@ const Navbar = () => {
         <Link to="/blog">Blog</Link>
       </li>
 
-      <li>
-        <Link to="/signup">SignUp</Link>
-      </li>
       {user?.uid ? (
         <>
           <li>
@@ -34,9 +31,14 @@ const Navbar = () => {
           </li>
         </>
       ) : (
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
+        <>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/signup">SignUp</Link>
+          </li>
+        </>
       )}
     </>
   );

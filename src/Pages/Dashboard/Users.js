@@ -74,7 +74,15 @@ const Users = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
 
-                <td>{user?.role}</td>
+                {user?.role === "seller" ? (
+                  <>
+                    <td className="text-red-500">{user?.role}</td>
+                  </>
+                ) : (
+                  <>
+                    <td className="text-info">{user?.role}</td>
+                  </>
+                )}
 
                 <td>
                   {user?.role !== "admin" && (

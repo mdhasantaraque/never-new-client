@@ -13,6 +13,7 @@ const Login = () => {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
   const [loginUserEmail, setLoginUserEmail] = useState("");
@@ -31,10 +32,11 @@ const Login = () => {
     setSignUpError("");
     loginUser(data.email, data.password)
       .then((result) => {
-        const user = result.user;
+        // const user = result.user;
         setLoginUserEmail(data.email);
         toast.success("Successfully login");
-        // form.reset();
+        navigate(from, { replace: true });
+        reset(data);
       })
       .catch((error) => {
         setSignUpError(error.message);

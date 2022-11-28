@@ -61,6 +61,7 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         setCreatedUserEmail(email);
+        toast.success("successfully login");
       });
   };
 

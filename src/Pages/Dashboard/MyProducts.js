@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Contexts/AuthProvider";
+import BuyerProduct from "./BuyerProduct";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const MyProducts = () => {
       return data;
     },
   });
-
+  console.log(products);
   const handleDelete = (id) => {
     const proceed = window.confirm(
       "Are you sure, you want to remove your product"
@@ -38,15 +39,15 @@ const MyProducts = () => {
           if (data.deletedCount > 0) {
             toast.error("deleted successfully");
             refetch();
-            // const remaining = orders.filter(odr => odr._id !== id);
-            // setOrders(remaining);
           }
         });
     }
   };
   return (
     <div>
-      <h1 className="text-center text-gray-900 mt-8">{user?.displayName}</h1>
+      <h1 className="text-center text-gray-900 mt-8 text-2xl font-bold">
+        {user?.displayName}
+      </h1>
       <div className="overflow-x-auto py-8">
         <table className="table  w-full">
           <thead className="bg-accent">

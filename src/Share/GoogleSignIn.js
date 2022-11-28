@@ -15,9 +15,22 @@ const GoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
-        navigate(from, { replace: true });
-        toast.success("Successfully sign up");
-        // authToken(user);
+        const setUser = {
+          email: user.email,
+          role: "buyer",
+        };
+        fetch(`${process.env.REACT_APP_API_URL}/users`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(setUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            navigate(from, { replace: true });
+            toast.success("Successfully sign up");
+          });
       })
       .catch((error) => {
         toast.error(error.message);

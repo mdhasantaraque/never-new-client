@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../Contexts/AuthProvider";
 
@@ -65,6 +66,7 @@ const BookingModal = ({ id, categories, price }) => {
               value={productCategories}
               placeholder="Product name"
               className="input w-full input-bordered "
+              required
             />
             <input
               type="text"
@@ -72,6 +74,7 @@ const BookingModal = ({ id, categories, price }) => {
               value={productPrice}
               placeholder="Product Price"
               className="input w-full input-bordered "
+              required
             />
 
             <input
@@ -81,6 +84,7 @@ const BookingModal = ({ id, categories, price }) => {
               readOnly
               placeholder="Your Name"
               className="input w-full input-bordered"
+              required
             />
             <input
               name="email"
@@ -89,25 +93,36 @@ const BookingModal = ({ id, categories, price }) => {
               readOnly
               placeholder="Email Address"
               className="input w-full input-bordered"
+              required
             />
             <input
               name="phone"
               type="text"
               placeholder="Phone Number"
               className="input w-full input-bordered"
+              required
             />
             <input
               name="meeting"
               type="text"
               placeholder="Meeting location"
               className="input w-full input-bordered"
+              required
             />
             <br />
-            <input
-              className="btn btn-accent w-full"
-              type="submit"
-              value="Submit"
-            />
+            {user?.uid ? (
+              <input
+                className="btn btn-accent w-full"
+                type="submit"
+                value="Submit"
+              />
+            ) : (
+              <Link to="/login">
+                <p className="text-info text-xl font-semibold text-center ">
+                  For booking login please
+                </p>
+              </Link>
+            )}
           </form>
         </div>
       </div>
